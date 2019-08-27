@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Reset root qdisc on eth1
+tc qdisc delete dev eth1 root
+
+# Attach hierarchical token buffer qdisc to internal testbed interface and configure outgoing bandwidth limit on root class
+tc qdisc add dev eth1 root handle 1: htb
+tc class add dev eth1 parent 1: classid 1:1 htb rate {{ hostvars[inventory_hostname].testbed_config.bandwidth_out }}mbit
+
+# For each target ip add filter and apply configured delay
+{% for delay_path in hostvars[inventory_hostname].testbed_config.delay_paths %}
+tc class add dev eth1 parent 1:1 classid 1:2{{ loop.index }} htb rate {{ hostvars[inventory_hostname].testbed_config.bandwidth_out }}mbit
+tc filter add dev eth1 protocol ip parent 1:0 u32 match ip dst {{ delay_path.internal_ip }} classid 1:2{{ loop.index }}
+tc qdisc add dev eth1 parent 1:2{{ loop.index }} handle 3{{ loop.index }}: netem delay {{ delay_path.value }}000
+
+{% endfor %}

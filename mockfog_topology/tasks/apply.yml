@@ -1,0 +1,9 @@
+---
+- name: Copy network config template script
+  template:
+    src: configure_network.sh.j2
+    dest: /root/configure_network.sh
+    mode: u+rx
+
+- name: Run network config script
+  shell: /root/configure_network.sh

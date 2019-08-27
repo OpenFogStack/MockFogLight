@@ -1,0 +1,11 @@
+---
+# tasks file for mockfog_topology
+
+- import_tasks: bootstrap.yml
+  tags: bootstrap
+
+- import_tasks: apply.yml
+  tags: apply
+
+- import_tasks: destroy.yml
+  tags: destroy

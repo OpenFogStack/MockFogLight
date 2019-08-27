@@ -1,0 +1,17 @@
+# Editor config
+.vscode
+.idea
+
+# Venvs
+.venv
+venv
+
+# Keys
+mockfog.pem
+
+# Ansible files
+**/*.retry
+
+# Stuff
+**/__pycache__
+.DS_Store
