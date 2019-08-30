@@ -1,8 +1,12 @@
-mockfog_rollout
+mockfog_application
 =========
 
 Rolls out a ping application and configures it using the hostvars set by mockfog_topology.
 The respective playbook is placed in the parent directory.
+
+Tags:
+- deploy: roll out and start application, delete priorly running instances and data
+- collect: collect logs, keep application running
 
 ### Requirements
 

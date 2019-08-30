@@ -1,5 +1,4 @@
 ---
-# tasks file for mockfog_rollout
 - name: Delete old folders
   file:
     path: "{{ item }}"
@@ -37,7 +36,7 @@
 
 - name: Start ping application containers
   docker_container:
-    name: ping
+    name: "{{ container_name }}"
     image: willfarrell/ping
     state: started
     auto_remove: yes

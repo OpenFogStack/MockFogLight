@@ -8,7 +8,7 @@ def simple_topology(g: Graph):
     g.add_node('cloud1', **node_attrs(type='zone'))
 
     # if you do not supply a zone, the node is interpreted as being a machine
-    # the role is attached as tag to the AWS instance and can be used to run tasks only on machines with a certain role
+    # the role is attached as tag to the AWS instance and can be used to run tasks only on machines with a certain role (see mockfog_application.yml notebook)
     g.add_node('cloud1_broker1', **node_attrs(role='broker',
                                               # there can be multiple app configs, if needed
                                               app_configs=[

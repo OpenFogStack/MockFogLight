@@ -1,0 +1,12 @@
+---
+- name: Make log folder
+  shell: "mkdir -p {{ folder }}/logs"
+
+- name: Save docker logs
+  shell: "journalctl CONTAINER_NAME={{ container_name }} > {{ folder }}/logs/{{ hostvars[inventory_hostname].testbed_config.name }}.log"
+
+- name: Get logs
+  synchronize:
+    mode: pull
+    src: "{{ folder }}/logs/"
+    dest: logs/

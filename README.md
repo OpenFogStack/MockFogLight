@@ -45,10 +45,12 @@ ansible-playbook --key-file=mockfog.pem --ssh-common-args="-o StrictHostKeyCheck
 ansible-playbook -i inventory/ec2.py --key-file=mockfog.pem --ssh-common-args="-o StrictHostKeyChecking=no" mockfog_network.yml
 ```
 
-# MockFog Rollout
+# MockFog Application
 
-- rolls out application and starts it
+- deploys application on nodes and starts it
+- collects logs
 
 ```fish
-ansible-playbook -i inventory/ec2.py --key-file=mockfog.pem --ssh-common-args="-o StrictHostKeyChecking=no" mockfog_rollout.yml
+ansible-playbook -i inventory/ec2.py --key-file=mockfog.pem --ssh-common-args="-o StrictHostKeyChecking=no" mockfog_application.yml --tags deploy
+ansible-playbook -i inventory/ec2.py --key-file=mockfog.pem --ssh-common-args="-o StrictHostKeyChecking=no" mockfog_application.yml --tags collect
 ```

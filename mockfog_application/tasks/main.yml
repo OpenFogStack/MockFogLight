@@ -1,0 +1,7 @@
+---
+# tasks file for mockfog_application
+- import_tasks: deploy.yml
+  tags: deploy
+
+- import_tasks: collect.yml
+  tags: collect
