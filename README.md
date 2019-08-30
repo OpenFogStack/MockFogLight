@@ -37,7 +37,7 @@ In addition:
 ansible-playbook --key-file=mockfog.pem --ssh-common-args="-o StrictHostKeyChecking=no" mockfog_topology.yml --tags bootstrap
 ansible-playbook --key-file=mockfog.pem --ssh-common-args="-o StrictHostKeyChecking=no" mockfog_topology.yml --tags destroy
 ```
-# MockFog Network
+### MockFog Network
 
 - configures delays via TC
 
@@ -45,7 +45,7 @@ ansible-playbook --key-file=mockfog.pem --ssh-common-args="-o StrictHostKeyCheck
 ansible-playbook -i inventory/ec2.py --key-file=mockfog.pem --ssh-common-args="-o StrictHostKeyChecking=no" mockfog_network.yml
 ```
 
-# MockFog Application
+### MockFog Application
 
 - deploys application on nodes and starts it
 - collects logs
