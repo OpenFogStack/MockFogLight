@@ -1,7 +1,7 @@
 ---
 # Playbook to control the mockfog_topology role
 
-- name: Bootstrap Nodes on AWS
+- name: Bootstrap or Destroy Nodes on AWS
   hosts: localhost
   vars_files:
     - "{{ playbook_dir }}/testbed/testbed_definition.yml"

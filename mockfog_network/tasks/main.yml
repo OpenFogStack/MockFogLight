@@ -1,4 +1,5 @@
 ---
+# tasks file for mockfog_network
 - name: Copy network config template script
   template:
     src: configure_network.sh.j2

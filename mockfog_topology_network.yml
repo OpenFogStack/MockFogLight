@@ -1,9 +1,0 @@
----
-# Playbook to control the mockfog_topology role
-
-- name: Apply Network Topology Definition
-  hosts: all_nodes
-  remote_user: ec2-user
-  become: yes
-  roles:
-    - mockfog_topology

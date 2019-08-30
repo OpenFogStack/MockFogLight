@@ -29,13 +29,26 @@ In addition:
 
 ### MockFog Topology
 
-- sets up an AWS infrastructure based on the generated testbed definition
-- configures delays via TC
+- bootstraps (or destroys) an AWS infrastructure based on the generated testbed definition
 - adds the **testbed_config** field to hostvars; useable via other roles and templates, e.g., `hostvars[inventory_hostname].testbed_config.bandwidth_out` (actually done on the fly via `ec2.py`)
 - sets the name, internal_ip, and role tag of EC2 instances
 
 ```fish
 ansible-playbook --key-file=mockfog.pem --ssh-common-args="-o StrictHostKeyChecking=no" mockfog_topology.yml --tags bootstrap
-ansible-playbook -i inventory/ec2.py --key-file=mockfog.pem --ssh-common-args="-o StrictHostKeyChecking=no" mockfog_topology_network.yml --tags apply
 ansible-playbook --key-file=mockfog.pem --ssh-common-args="-o StrictHostKeyChecking=no" mockfog_topology.yml --tags destroy
+```
+# MockFog Network
+
+- configures delays via TC
+
+```fish
+ansible-playbook -i inventory/ec2.py --key-file=mockfog.pem --ssh-common-args="-o StrictHostKeyChecking=no" mockfog_network.yml
+```
+
+# MockFog Rollout
+
+- rolls out application and starts it
+
+```fish
+ansible-playbook -i inventory/ec2.py --key-file=mockfog.pem --ssh-common-args="-o StrictHostKeyChecking=no" mockfog_rollout.yml
 ```
