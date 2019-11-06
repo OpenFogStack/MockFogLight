@@ -9,7 +9,7 @@ Tags:
 
 ### Requirements
 
-- vars configured in `vars/main.yml`
+- vars configured in `vars/main.yml` <- use `vars/main_template.yml` as a foundation
     - The AMI should be based on Amazon Linux 2. Needed packages:
         * TC (z.B. iproute-tc)
         * Docker

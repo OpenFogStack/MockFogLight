@@ -16,3 +16,4 @@ mockfog.pem
 **/__pycache__
 .DS_Store
 logs/
+mockfog_topology/vars/main.yml
