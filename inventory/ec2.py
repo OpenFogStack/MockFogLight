@@ -1570,7 +1570,7 @@ class Ec2Inventory(object):
 
         # Add testbed topology configuration if set (lookup machine by name tag)
         if self.testbed_topology:
-            machine_name = instance.tags['Name']
+            machine_name = instance.tags.get('Name', 'ignore')
             node_config = next(iter(filter(lambda n: n['name'] == machine_name, self.testbed_topology['nodes'])), None)
             if node_config is not None:
                 instance_vars['testbed_config'] = node_config

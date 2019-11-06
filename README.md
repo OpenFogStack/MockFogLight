@@ -19,8 +19,9 @@ pip install -r requirements.txt
 ```
 
 In addition:
-- aws credentials configured in `~/.aws/config`
+- aws credentials configured in `~/.aws/credentials`
 - valid AWS ssh key stored at `./mockfog.pem`
+- read the individual READMEs for each role
 
 ### Create Testbed Definition
 
