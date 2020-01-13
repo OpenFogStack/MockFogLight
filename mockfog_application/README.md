@@ -20,4 +20,4 @@ A playbook needs to be run with the following parameters:
 --ssh-common-args="-o StrictHostKeyChecking=no"
 ```
 
-Assume that the playbook supplies the testbed definition in the form of a vars file, if bootstrap tag is used.
+Testbed definition fields are available in a similar fashion as if they were supplied as a vars file (thanks to ec2.py inventory).
