@@ -1,10 +1,16 @@
 ---
-- name: Delete old folders
-  file:
-    path: "{{ item }}"
-    state: absent
-  with_items:
-    - "{{ folder }}"
+- name: Include check_dependencies play
+  include: "{{ playbook_dir }}/mockfog_application/tasks/check_dependencies.yml"
+
+- name: Include check_variables play
+  include: "{{ playbook_dir }}/mockfog_application/tasks/check_variables.yml"
+
+- name: Get current Host IP
+  set_fact:
+    host_ip: hostvars[inventory_hostname]['ansible_env'].SSH_CONNECTION.split(' ')[2]
+
+- debug: "{{ hostvars[inventory_hostname]['ansible_env'] }}.SSH_CONNECTION.split(' ')[2]"
+
 
 - name: Install Docker SDK
   pip:
@@ -15,32 +21,79 @@
     name: docker
     state: started
 
-- name: Create ping application folder
-  file:
-    path: "{{ folder }}"
-    state: directory
-
-- name: Write ping config
-  template:
-    src: env_file.env.j2
-    dest: "{{ folder }}/env_file.env"
-
 - name: Kill all running docker containers
   shell: docker rm --force $(docker ps -aq) || true
 
-- name: Pull ping images
+- name: Pull docker images
   docker_image:
-    name: willfarrell/ping
+    name: "{{ docker_image }}"
     source: pull
     force_source: yes
 
-- name: Start ping application containers
+- name: Recursively remove existing app directory
+  file:
+    path: app
+    state: absent
+
+- name: create app dir
+  file:
+    path: app
+    state: directory
+    recurse: yes
+    owner: ec2-user
+    group: ec2-user
+#  when: app_vars.volumes is defined and app_vars.volumes|length > 0
+
+- name: Write application config
+  template:
+    src: "{{ playbook_dir }}/mockfog_application/templates/env_file.env.j2"
+    dest: "{{ folder }}/env_file.env"
+  ignore_errors: true
+#  when: env_file.stat.exists
+
+- name: Copy config.yaml script
+  copy:
+    src: "{{ playbook_dir }}{{ app_vars.volumes.path }}"
+    dest: app/config.yaml
+    owner: ec2-user
+    group: ec2-user
+    mode: '0644'
+  when: app_vars.volumes is defined and app_vars.volumes|length > 0
+
+- name: Check if app-specific env_file exists
+  stat: path="{{ inventory_hostname }}.env.j2"
+  register: env_file
+
+- name: Write application config
+  template:
+    src: "{{ inventory_hostname }}.env.j2"
+    dest: "{{ folder }}/env_file.env"
+  when: env_file.stat.exists
+
+- name: Start application containers which require volumes
   docker_container:
     name: "{{ container_name }}"
-    image: willfarrell/ping
+    image: "{{ docker_image }}"
     state: started
     auto_remove: yes
     log_driver: journald
+    exposed_ports: "{{ expose }}"
+    ports: "{{ ports }}"
     env_file: "{{ folder }}/env_file.env"
     volumes:
-      - "{{ folder }}/env_file.env:{{ folder }}/env_file.env"
+      - "/home/ec2-user/app/config.yaml:{{ app_vars.volumes.container }}"
+  when: app_vars.volumes is defined and app_vars.volumes|length > 0
+  ignore_errors: true
+
+- name: Start application containers
+  docker_container:
+    name: "{{ container_name }}"
+    image: "{{ docker_image }}"
+    state: started
+    auto_remove: yes
+    log_driver: journald
+    exposed_ports: "{{ expose }}"
+    ports: "{{ ports }}"
+    env_file: "{{ folder }}/env_file.env"
+  when: app_vars.volumes is undefined or app_vars.volumes|length == 0
+  ignore_errors: true

@@ -1,0 +1,15 @@
+sources:
+  - type: http
+    port: 4567
+  - type: udp
+    port: 4567
+measurementTypes:
+  - name: "heartRate"
+    lowerThreshold: 60
+    upperThreshold: 100
+sinks:
+  - type: influxDB
+    address: http://34.77.175.225
+    port: 8086
+    user: influxdb-admin
+    password: KfZ7WYGEYZnfSByme4noQY34FnR45kam

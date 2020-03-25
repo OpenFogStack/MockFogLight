@@ -1,0 +1,54 @@
+# Get mapping and store it in Mapping.json
+- name: create_mapping_json
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Create mapping.json
+      become: false
+      shell: echo "[" > mapping.json
+
+- name: ec2_metadata
+  hosts: all_nodes
+  gather_facts: no
+  remote_user: ec2-user
+  become: yes
+  tasks:
+    - include_vars: "{{ playbook_dir }}/mockfog_topology/vars/main.yml"
+
+    - name: get_ec2_facts
+      ec2_metadata_facts:
+      register: ec2_facts
+
+    - name: Retrieve all tags on an instance
+      vars:
+        ansible_python_interpreter: /usr/bin/python3
+      ec2_tag:
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
+        region: "{{ ansible_ec2_placement_region }}"
+        resource: "{{ ansible_ec2_instance_id }}"
+        state: list
+      register: ec2_tags
+
+    - name: Write to mapping.json
+      become: false
+      local_action: shell echo '{"ip"{{":"}} "{{ ansible_ec2_public_ipv4 }}", "id"{{":"}} "{{ ec2_tags.tags.Name }}" },' >> mapping.json
+      register: mapping
+    - debug:
+       msg: "{{ mapping }}"
+
+- name: close_mapping_json
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Put everything list
+      become: false
+      shell: sed -i '1h;1!H;$!d;g;s/\(.*\),/\1/' mapping.json && echo "]" >> mapping.json
+
+- name: Dump to yaml
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Write to mapping.yml
+      script: JsonToYaml.py
+      ignore_errors: True

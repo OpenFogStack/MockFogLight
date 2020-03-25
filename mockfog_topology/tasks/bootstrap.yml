@@ -47,6 +47,9 @@
       - proto: tcp
         ports:
           - 22
+          - 20200
+          - 20201
+          - 30444
         cidr_ip: 0.0.0.0/0
         rule_desc: Allow inbound SSH
   register: public_security_group
@@ -80,7 +83,7 @@
   ec2:
     region: "{{ ec2_region }}"
     key_name: "{{ ssh_key_name }}"
-    image: "{{ base_image }}"
+    image: "{{ item.image }}"
     assign_public_ip: yes
     group_id: "{{ public_security_group.group_id }}"
     instance_type: "{{ item.flavor }}"

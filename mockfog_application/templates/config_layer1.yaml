@@ -1,0 +1,13 @@
+sources:
+  - type: http
+    port: 4567
+  - type: udp
+    port: 4567
+measurementTypes:
+  - name: "heartRate"
+    lowerThreshold: 60
+    upperThreshold: 100
+sinks:
+  - type: udp
+    address: 54.93.105.51
+    port: 30444

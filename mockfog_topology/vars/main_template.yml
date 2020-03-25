@@ -3,3 +3,5 @@
 ec2_region: TODO -> (e.g., eu-north-1)
 ssh_key_name: mockfog
 base_image: TODO -> (ami-xxxxxx)
+aws_access_key: TODO -> (xxxxxx)
+aws_secret_key: TODO -> (xxxxxx)

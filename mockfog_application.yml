@@ -1,16 +1,16 @@
 ---
 # Playbook to control the mockfog_application role
 
-- name: Rollout ping application
-  hosts: broker_nodes # based on defined role
+- name: Rollout Applications
+  hosts: all_nodes # based on defined role
+  vars_files:
+    - "{{ playbook_dir }}/mockfog_application/vars/application_definition.yml"
+    - "{{ playbook_dir }}/mockfog_application/vars/application_config.yml"
+    - "{{ playbook_dir }}/mockfog_application/vars/mapping.yml"
   remote_user: ec2-user
   become: yes
-  roles:
-    - mockfog_application
-
-- name: Rollout ping application
-  hosts: client_nodes
-  remote_user: ec2-user
-  become: yes
+  vars:
+    _app_config: "{{(lookup('vars', 'application_config'))}}"
+    _app_def: "{{(lookup('vars', 'application_definition'))}}"
   roles:
     - mockfog_application
