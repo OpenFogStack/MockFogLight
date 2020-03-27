@@ -1095,6 +1095,7 @@ class Ec2Inventory(object):
         # Add custom group based on Role tag
         if 'Role' in instance.tags:
             self.push(self.inventory, f'{instance.tags["Role"]}_nodes', hostname)
+            self.push(self.inventory, f'{instance.tags["Name"]}_node', hostname)
             self.push(self.inventory, 'all_nodes', hostname)
 
         # Global Tag: tag all EC2 instances

@@ -1,0 +1,19 @@
+- fail: msg="The variable 'app_def' is not defined"
+  when: app_def|length == 0
+
+- fail: msg="The variable 'nodes' is not defined in app_config"
+  when: app_config.nodes|length == 0
+
+- fail: msg="The variable 'container_name' is not defined"
+  when: container_name|length == 0
+
+- fail: msg="The variable 'docker_image' is not defined"
+  when: docker_image|length == 0
+
+- fail: msg="The variable 'expose' is not defined"
+  when: expose|length == 0
+
+- fail: msg="The variable 'ports' is not defined"
+  when: ports|length == 0
+
+

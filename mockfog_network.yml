@@ -5,5 +5,7 @@
   hosts: all_nodes
   remote_user: ec2-user
   become: yes
+  vars:
+    network_interface: eth1
   roles:
     - mockfog_network

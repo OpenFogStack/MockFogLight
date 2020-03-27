@@ -1,0 +1,33 @@
+- name: Include check_dependencies play
+  include: "{{ playbook_dir }}/mockfog_application/tasks/check_dependencies.yml"
+
+- name: Include check_variables play
+  include: "{{ playbook_dir }}/mockfog_application/tasks/check_variables.yml"
+
+- name: Remove existing mockfog agent script
+  file:
+    path: mockfog_agent.py
+    state: absent
+
+- name: Copy mockfog agent script
+  copy:
+    src: "{{ playbook_dir }}/mockfog_agent/mockfog_agent.py"
+    dest: mockfog_agent.py
+    owner: ec2-user
+    group: ec2-user
+    mode: '0644'
+
+- name: create virtual env
+  shell: "virtualenv .mockfog_agent -p /usr/bin/python3"
+  become_user: ec2-user
+
+- name: activate virtual env
+  shell: ". .mockfog_agent/bin/activate"
+  become_user: ec2-user
+
+- name: Install mockfog agent dependencies
+  shell: "sudo .mockfog_agent/bin/pip install docker tcconfig"
+  become_user: ec2-user
+
+- name: start mockfog agent
+  shell: "sudo nohup env PATH=$PATH .mockfog_agent/bin/python mockfog_agent.py </dev/null >/dev/null 2>&1 & sleep 1"
