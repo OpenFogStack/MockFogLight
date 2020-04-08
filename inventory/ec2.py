@@ -249,7 +249,7 @@ class Ec2Inventory(object):
 
         # Load topology configuration to merge into instance information later on
         self.testbed_topology = None
-        TESTBED_FILE = 'testbed/testbed_definition.yml'
+        TESTBED_FILE = 'topology/testbed_definition.yml'
         if os.path.isfile(TESTBED_FILE):
             with open(TESTBED_FILE, 'r') as file:
                 self.testbed_topology = yaml.safe_load(file)
