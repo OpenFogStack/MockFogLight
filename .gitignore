@@ -3,6 +3,7 @@
 .idea
 
 # Venvs
+.env
 .venv
 venv
 
@@ -16,4 +17,6 @@ mockfog.pem
 **/__pycache__
 .DS_Store
 logs/
-mockfog_topology/vars/main.yml
+deploy/vars/main.yml
+topology.json
+topology/testbed_definition.yml
