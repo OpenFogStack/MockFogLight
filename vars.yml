@@ -1,0 +1,4 @@
+---
+# vars file for mockfog_topology
+ec2_region: us-east-1
+base_image: ami-0fc61db8544a617ed
