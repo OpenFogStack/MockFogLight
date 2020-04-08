@@ -1,5 +1,4 @@
-mockfog_network
-=========
+# mockfog_network
 
 Configures the network using the hostvars set by mockfog_topology.
 The respective playbook is placed in the parent directory.
@@ -11,6 +10,7 @@ The respective playbook is placed in the parent directory.
 ### Role Variables
 
 A playbook needs to be run with the following parameters:
+
 ```bash
 --key-file=XXXX
 --ssh-common-args="-o StrictHostKeyChecking=no"
