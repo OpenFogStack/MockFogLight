@@ -1,0 +1,9 @@
+---
+# Playbook to control the mockfog_application role
+
+- name: Prepare Python and Docker
+  hosts: all_nodes # based on defined role
+  remote_user: ec2-user
+  become: yes
+  roles:
+    - prepare

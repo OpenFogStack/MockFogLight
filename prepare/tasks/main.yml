@@ -1,0 +1,4 @@
+---
+# tasks file for mockfog_application
+- import_tasks: prepare.yml
+  tags: prepare
