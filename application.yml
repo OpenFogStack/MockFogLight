@@ -1,0 +1,13 @@
+---
+# Playbook to control the mockfog_application role
+
+- name: Rollout ping application
+  hosts: camera_nodes # based on defined role
+  remote_user: ec2-user
+  become: yes
+  vars:
+    - container_name: cfd
+    - image_name: cfd
+    - docker_repo: pfandzelter
+  roles:
+    - application

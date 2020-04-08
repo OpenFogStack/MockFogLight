@@ -1,0 +1,17 @@
+---
+- name: Kill all running docker containers
+  shell: docker rm --force $(docker ps -aq) || true
+
+- name: Pull image
+  docker_image:
+    name: "{{ docker_repo }}/{{ image_name }}"
+    source: pull
+    force_source: yes
+
+- name: Start container
+  docker_container:
+    name: "{{ container_name }}"
+    image: "{{ docker_repo }}/{{ image_name }}"
+    state: started
+    auto_remove: yes
+    log_driver: journald
