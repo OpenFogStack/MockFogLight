@@ -1,4 +1,0 @@
----
-# defaults file for mockfog_application
-folder: /pingclient
-container_name: ping

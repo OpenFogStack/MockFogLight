@@ -7,7 +7,7 @@
   register: network
 
 - name: Get Instance IDs
-  ec2_instance_facts:
+  ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       vpc-id: "{{ network.vpcs[0].vpc_id }}"

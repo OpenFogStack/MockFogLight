@@ -1,6 +1,8 @@
 ---
-- name: Kill all running docker containers
-  shell: docker rm --force $(docker ps -aq) || true
+- name: Copy env file
+  copy:
+    src: files/mapping.env
+    dest: /mapping.env
 
 - name: Pull image
   docker_image:
@@ -15,3 +17,6 @@
     state: started
     auto_remove: yes
     log_driver: journald
+    env_file: /mapping.env
+    ports:
+      - "{{ port }}:8080"

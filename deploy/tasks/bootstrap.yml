@@ -105,7 +105,7 @@
   with_items: "{{ instance_creation.results }}"
 
 - name: Get Facts about Nodes
-  ec2_instance_facts:
+  ec2_instance_info:
     region: "{{ ec2_region }}"
     filters:
       vpc-id: "{{ network.vpc.id }}"

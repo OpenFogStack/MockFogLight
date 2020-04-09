@@ -554,9 +554,7 @@
       "id": "090c5dc4-23e0-4542-9d79-a048bc9795d4",
       "flowProperties": {
         "requiredBandwidth": 1,
-        "involvedConnections": [
-          "61633e57-e951-47f8-9e18-58e0a940ac4c"
-        ],
+        "involvedConnections": ["61633e57-e951-47f8-9e18-58e0a940ac4c"],
         "notReachedBecauseOfDataPath": [],
         "transmissionTime": 0.0001,
         "transmissionCost": 0
@@ -580,9 +578,7 @@
       "id": "b8e52fc1-b2ad-47cd-a186-b45cae379746",
       "flowProperties": {
         "requiredBandwidth": 1,
-        "involvedConnections": [
-          "9fe246c5-9bc4-4026-ab5a-fcb6c0e7d470"
-        ],
+        "involvedConnections": ["9fe246c5-9bc4-4026-ab5a-fcb6c0e7d470"],
         "notReachedBecauseOfDataPath": [],
         "transmissionTime": 0.05,
         "transmissionCost": 5
@@ -594,9 +590,7 @@
       "id": "c785caf9-bd6e-4be1-8268-1a59a9c3016c",
       "flowProperties": {
         "requiredBandwidth": 0.1,
-        "involvedConnections": [
-          "6a540a59-e461-464c-9ef3-f7fa6a4e7d83"
-        ],
+        "involvedConnections": ["6a540a59-e461-464c-9ef3-f7fa6a4e7d83"],
         "notReachedBecauseOfDataPath": [],
         "transmissionTime": 0.01,
         "transmissionCost": 0
@@ -608,9 +602,7 @@
       "id": "b370ba6c-a9f2-4b54-83b7-66b9f0435615",
       "flowProperties": {
         "requiredBandwidth": 1,
-        "involvedConnections": [
-          "6c775ee9-d10d-4096-9cbe-ba110a527782"
-        ],
+        "involvedConnections": ["6c775ee9-d10d-4096-9cbe-ba110a527782"],
         "notReachedBecauseOfDataPath": [],
         "transmissionTime": 0.05,
         "transmissionCost": 1

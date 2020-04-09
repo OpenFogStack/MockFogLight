@@ -27,3 +27,6 @@
   service:
     name: docker
     state: started
+
+- name: Kill all running docker containers
+  shell: docker rm --force $(docker ps -aq) || true
