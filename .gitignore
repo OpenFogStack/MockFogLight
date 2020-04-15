@@ -15,8 +15,11 @@ mockfog.pem
 
 # Stuff
 **/__pycache__
+topologies
+application.yml
 .DS_Store
 logs/
 deploy/vars/main.yml
 topology.json
 topology/testbed_definition.yml
+topology/mapping.env

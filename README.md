@@ -103,7 +103,12 @@ make network
 Finally your application can be deployed with:
 
 ```bash
+make prepare
 make application
 ```
+
+Your application should be a Docker container that is available on Docker hub as `{{ repo_name }}/{{ service_name }}` with `repo_name` as configured in `vars.yml`. `service_name` is taken from modules of your `topology.json`. These applications should expose ports as specified in the environment variables, these will be bound directly to the host interface.
+
+Inside the container, addresses and ports of other services are available as environment variables in the form of `{{ SERVICE_NAME }}_IP` and `{{ SERVICE_NAME }}_PORT` (note that `SERVICE_NAME` is all uppercase). Note that ports are mapped regardless of whether your container actually uses them.
 
 You can collect application logs with `make collect`.

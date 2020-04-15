@@ -28,8 +28,7 @@ for k, v in placements.items():
         "vars": {
             "container_name": k,
             "image_name": k,
-            "docker_repo": "pfandzelter",
-            "port": port
+            "docker_repo": "pfandzelter"
         },
         "roles": ["application"]
     })

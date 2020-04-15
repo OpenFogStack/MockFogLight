@@ -30,10 +30,10 @@ prepare: topology/testbed_definition.yml
 
 application: topology/testbed_definition.yml
 	. $(VENV); cp vars.yml application/vars/main.yml
-	. $(VENV); cp topology/mapping.env application/files/mapping.env
 	. $(VENV); DYLD_FALLBACK_LIBRARY_PATH=/usr/local/opt/openssl/lib ansible-playbook -i inventory/ec2.py --key-file=$(KEY)  --ssh-common-args="-o StrictHostKeyChecking=no" application.yml --tags deploy
 
-collect: 
+collect:
+	. $(VENV); rm -rf logs/*.log
 	. $(VENV); DYLD_FALLBACK_LIBRARY_PATH=/usr/local/opt/openssl/lib ansible-playbook -i inventory/ec2.py --key-file=$(KEY) --ssh-common-args="-o StrictHostKeyChecking=no" application.yml --tags collect
 
 destroy:

@@ -1,8 +1,13 @@
 ---
 - name: Copy env file
   copy:
-    src: files/mapping.env
-    dest: /mapping.env
+    src: ./topology/mapping.env
+    dest: ./mapping.env
+
+- name: Remove old logs
+  shell:
+    cmd: truncate -s 0 /var/lib/docker/containers/*/*-json.log
+    removes: /var/lib/docker/containers/*/*-json.log
 
 - name: Pull image
   docker_image:
@@ -16,7 +21,6 @@
     image: "{{ docker_repo }}/{{ image_name }}"
     state: started
     auto_remove: yes
+    network_mode: host
     log_driver: journald
-    env_file: /mapping.env
-    ports:
-      - "{{ port }}:8080"
+    env_file: ./mapping.env
