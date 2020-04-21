@@ -30,3 +30,14 @@
 
 - name: Kill all running docker containers
   shell: docker rm --force $(docker ps -aq) || true
+
+- name: Allow Hard Time Sync
+  lineinfile:
+    path: /etc/chrony/chrony.conf
+    line: makestep 1 -1
+    create: yes
+
+- name: Synchronize Time
+  service:
+    name: chronyd
+    state: restarted

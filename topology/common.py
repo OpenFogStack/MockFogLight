@@ -20,7 +20,7 @@ def generate_random_ip():
 def node_attrs(**kwargs):
     attrs = {
         'type': 'machine',
-        'flavor': 't2.nano',
+        'flavor': 't2.small',
         'internal_ip': generate_random_ip(),
         **kwargs,
     }
@@ -52,16 +52,18 @@ def app_config(**kwargs):
 def get_path_between_machines(graph: Graph, src, dst):
     return nx.shortest_path(graph, source=src, target=dst, weight='delay')
 
+
 def get_path_bandwidth(graph: Graph, path):
     b = float("inf")
 
     for i in range(0, len(path) - 1):
         bandwidth = graph[path[i]][path[i + 1]]["bandwidth"]
 
-        if bandwidth < b :
+        if bandwidth < b:
             b = bandwidth
 
     return b
+
 
 def get_path_latency(graph: Graph, path):
     l = 0
@@ -71,6 +73,7 @@ def get_path_latency(graph: Graph, path):
         l += latency
 
     return l
+
 
 def build_name_to_ip(g: Graph):
     name_to_ip = {}
@@ -101,7 +104,8 @@ def validate_graph(g: Graph):
 
 def fill_node_attrs(g: Graph):
     # Add name and delay paths
-    machine_nodes = [(node, attrs) for node, attrs in g.nodes(data=True) if attrs['type'] == 'machine']
+    machine_nodes = [(node, attrs) for node, attrs in g.nodes(
+        data=True) if attrs['type'] == 'machine']
     for node, attrs in machine_nodes:
         attrs_update = {
             'name': node,
@@ -110,7 +114,7 @@ def fill_node_attrs(g: Graph):
         for dst_node, dst_attrs in filter(lambda n: n[0] != node, machine_nodes):
 
             path = get_path_between_machines(g, node, dst_node)
-            
+
             attrs_update['connections'].append({
                 'target': dst_node,
                 'internal_ip': dst_attrs['internal_ip'],
