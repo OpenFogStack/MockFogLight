@@ -14,7 +14,28 @@ def create(g: Graph, file):
     # add nodes
 
     for n in d["nodes"]:
-        g.add_node(n["id"], **node_attrs(role=n["id"], app_configs=[]))
+        flavor = "t2.micro"
+
+        if n["baseProperties"]["performanceIndicator"] < 1:
+            flavor = "t2.micro"
+
+        elif n["baseProperties"]["performanceIndicator"] <= 1:
+            flavor = "t2.medium"
+
+        elif n["baseProperties"]["performanceIndicator"] <= 5:
+            flavor = "t2.xlarge"
+
+        elif n["baseProperties"]["performanceIndicator"] <= 10:
+            flavor = "t2.2xlarge"
+
+        elif n["baseProperties"]["performanceIndicator"] <= 25:
+            flavor = "m5a.12xlarge"
+
+        elif n["baseProperties"]["performanceIndicator"] <= 50:
+            flavor = "m5a.24xlarge"
+
+
+        g.add_node(n["id"], **node_attrs(role=n["id"], flavor=flavor, app_configs=[]))
         #g.add_node(n["id"], **node_attrs(app_configs=[]))
 
     # add data paths

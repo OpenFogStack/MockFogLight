@@ -20,7 +20,6 @@ def generate_random_ip():
 def node_attrs(**kwargs):
     attrs = {
         'type': 'machine',
-        'flavor': 't2.small',
         'internal_ip': generate_random_ip(),
         **kwargs,
     }

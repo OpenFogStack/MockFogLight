@@ -1,5 +1,6 @@
 ---
 # vars file for mockfog_topology
 ec2_region: us-east-1
+ec2_avail_zone: us-east-1b
 base_image: ami-0fc61db8544a617ed
 docker_repo: pfandzelter

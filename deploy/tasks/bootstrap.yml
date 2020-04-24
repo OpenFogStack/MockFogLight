@@ -14,6 +14,7 @@
     region: "{{ ec2_region }}"
     map_public: yes
     cidr: 10.0.1.0/24
+    az: "{{ ec2_avail_zone }}"
     tags:
       Name: Testbed_Management_Subnet
   register: management_subnet

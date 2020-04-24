@@ -19,6 +19,7 @@ topologies
 deploy/vars/main.yml
 topology/testbed_definition.yml
 topology/mapping.env
+application/vars/main.yml
 
 # Stuff
 **/__pycache__
