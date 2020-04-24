@@ -10,7 +10,6 @@
     name: "{{ container_name }}"
     image: "{{ docker_repo }}/{{ image_name }}"
     state: started
-    auto_remove: yes
     network_mode: host
     log_driver: journald
     env_file: ./mapping.env
