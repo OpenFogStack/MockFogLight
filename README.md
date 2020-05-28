@@ -1,3 +1,5 @@
+### *This repository is now read only, for a new and actively maintained version of MockFog see [MockFog2](https://github.com/MoeweX/MockFog2)*.
+
 # MockFog Light
 
 This project is part of MockFog which includes the following subprojects:
