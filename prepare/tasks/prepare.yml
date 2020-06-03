@@ -49,5 +49,5 @@
 
 - name: Remove old logs
   shell:
-    cmd: truncate -s 0 /var/lib/docker/containers/*/*-json.log
-    removes: /var/lib/docker/containers/*/*-json.log
+    cmd: truncate -s 0 /var/lib/docker/containers/*/*.log
+    removes: /var/lib/docker/containers/*/*.log
