@@ -1,4 +1,4 @@
-Please note that this branch contains a modified version of MockFog as used in our paper ...
+Please note that this branch contains a modified version of MockFog.
 To see the full repository for this publication, please see [here](https://github.com/pfandzelter/zero2fog).
 
 # MockFog Light
