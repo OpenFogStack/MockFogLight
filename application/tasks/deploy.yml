@@ -1,0 +1,16 @@
+---
+- name: Pull image
+  docker_image:
+    name: "{{ docker_repo }}/{{ image_name }}"
+    source: pull
+    force_source: yes
+
+- name: Start container
+  docker_container:
+    name: "{{ container_name }}"
+    image: "{{ docker_repo }}/{{ image_name }}"
+    state: started
+    network_mode: host
+    log_driver: journald
+    env_file: ./mapping.env
+    restart_policy: "unless-stopped"

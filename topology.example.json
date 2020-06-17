@@ -1,0 +1,664 @@
+{
+  "nodes": [
+    {
+      "id": "sensor",
+      "label": "Sensor",
+      "baseProperties": {
+        "availableMemory": 1,
+        "memoryPrice": 500,
+        "performanceIndicator": 0.001
+      },
+      "flowProperties": {
+        "usedMemory": 0
+      }
+    },
+    {
+      "id": "pack_cntrl",
+      "label": "Packaging Controller",
+      "baseProperties": {
+        "availableMemory": 1,
+        "memoryPrice": 500,
+        "performanceIndicator": 0.05
+      },
+      "flowProperties": {
+        "usedMemory": 1
+      }
+    },
+    {
+      "id": "camera",
+      "label": "Camera",
+      "baseProperties": {
+        "availableMemory": 1,
+        "memoryPrice": 500,
+        "performanceIndicator": 0.001
+      },
+      "flowProperties": {
+        "usedMemory": 0
+      }
+    },
+    {
+      "id": "prod_cntrl",
+      "label": "Production Controller",
+      "baseProperties": {
+        "availableMemory": 10,
+        "memoryPrice": 250,
+        "performanceIndicator": 0.05
+      },
+      "flowProperties": {
+        "usedMemory": 0
+      }
+    },
+    {
+      "id": "wgw",
+      "label": "Wireless Gateway",
+      "baseProperties": {
+        "availableMemory": 100,
+        "memoryPrice": 250,
+        "performanceIndicator": 0.1
+      },
+      "flowProperties": {
+        "usedMemory": 10
+      }
+    },
+    {
+      "id": "fctry_datacenter",
+      "label": "Factory Data Center",
+      "baseProperties": {
+        "availableMemory": 5000,
+        "memoryPrice": 5,
+        "performanceIndicator": 0.5
+      },
+      "flowProperties": {
+        "usedMemory": 3510
+      }
+    },
+    {
+      "id": "office_datacenter",
+      "label": "Central Office Data Center",
+      "baseProperties": {
+        "availableMemory": 50000,
+        "memoryPrice": 5,
+        "performanceIndicator": 5
+      },
+      "flowProperties": {
+        "usedMemory": 0
+      }
+    },
+    {
+      "id": "cloud",
+      "label": "Cloud",
+      "baseProperties": {
+        "availableMemory": 50000,
+        "memoryPrice": 1,
+        "performanceIndicator": 10
+      },
+      "flowProperties": {
+        "usedMemory": 0
+      }
+    }
+  ],
+  "connections": [
+    {
+      "from": "camera",
+      "to": "prod_cntrl",
+      "baseProperties": {
+        "availableBandwidth": 100000000,
+        "bandwidthPrice": 0,
+        "latency": 0.0001
+      },
+      "id": "a00a460f-fcf1-4611-90b2-cc360751b2a4",
+      "flowProperties": {
+        "usedBandwidth": 10
+      }
+    },
+    {
+      "from": "prod_cntrl",
+      "to": "camera",
+      "baseProperties": {
+        "availableBandwidth": 100000000,
+        "bandwidthPrice": 0,
+        "latency": 0.0001
+      },
+      "id": "6e776a25-6197-4731-90bf-69bcadd1ce5b",
+      "flowProperties": {
+        "usedBandwidth": 0
+      }
+    },
+    {
+      "from": "sensor",
+      "to": "pack_cntrl",
+      "baseProperties": {
+        "availableBandwidth": 100000000,
+        "bandwidthPrice": 0,
+        "latency": 0.0001
+      },
+      "id": "61633e57-e951-47f8-9e18-58e0a940ac4c",
+      "flowProperties": {
+        "usedBandwidth": 1
+      }
+    },
+    {
+      "from": "pack_cntrl",
+      "to": "sensor",
+      "baseProperties": {
+        "availableBandwidth": 100000000,
+        "bandwidthPrice": 0,
+        "latency": 0.0001
+      },
+      "id": "b469ae76-6cdb-428c-b031-e56218e1c262",
+      "flowProperties": {
+        "usedBandwidth": 0
+      }
+    },
+    {
+      "from": "prod_cntrl",
+      "to": "wgw",
+      "baseProperties": {
+        "availableBandwidth": 1000000,
+        "bandwidthPrice": 5,
+        "latency": 0.05
+      },
+      "id": "52461129-55ea-4f61-a605-74bb0a45215f",
+      "flowProperties": {
+        "usedBandwidth": 11
+      }
+    },
+    {
+      "from": "wgw",
+      "to": "prod_cntrl",
+      "baseProperties": {
+        "availableBandwidth": 1000000,
+        "bandwidthPrice": 5,
+        "latency": 0.05
+      },
+      "id": "60a462d4-ed9e-4efd-9b80-7424eeb6a2ae",
+      "flowProperties": {
+        "usedBandwidth": 1
+      }
+    },
+    {
+      "from": "pack_cntrl",
+      "to": "wgw",
+      "baseProperties": {
+        "availableBandwidth": 1000000,
+        "bandwidthPrice": 5,
+        "latency": 0.05
+      },
+      "id": "9fe246c5-9bc4-4026-ab5a-fcb6c0e7d470",
+      "flowProperties": {
+        "usedBandwidth": 2
+      }
+    },
+    {
+      "from": "wgw",
+      "to": "pack_cntrl",
+      "baseProperties": {
+        "availableBandwidth": 1000000,
+        "bandwidthPrice": 5,
+        "latency": 0.05
+      },
+      "id": "e2a60bb7-0f67-4840-b95a-c38b5814e7e7",
+      "flowProperties": {
+        "usedBandwidth": 1
+      }
+    },
+    {
+      "from": "wgw",
+      "to": "fctry_datacenter",
+      "baseProperties": {
+        "availableBandwidth": 1000000000,
+        "bandwidthPrice": 0,
+        "latency": 0.01
+      },
+      "id": "6a540a59-e461-464c-9ef3-f7fa6a4e7d83",
+      "flowProperties": {
+        "usedBandwidth": 11.1
+      }
+    },
+    {
+      "from": "fctry_datacenter",
+      "to": "wgw",
+      "baseProperties": {
+        "availableBandwidth": 1000000000,
+        "bandwidthPrice": 0,
+        "latency": 0.01
+      },
+      "id": "13370ff0-06a8-4d70-907a-32c85eae0097",
+      "flowProperties": {
+        "usedBandwidth": 1
+      }
+    },
+    {
+      "from": "fctry_datacenter",
+      "to": "office_datacenter",
+      "baseProperties": {
+        "availableBandwidth": 10000000000,
+        "bandwidthPrice": 1,
+        "latency": 0.05
+      },
+      "id": "6c775ee9-d10d-4096-9cbe-ba110a527782",
+      "flowProperties": {
+        "usedBandwidth": 1
+      }
+    },
+    {
+      "from": "office_datacenter",
+      "to": "fctry_datacenter",
+      "baseProperties": {
+        "availableBandwidth": 10000000000,
+        "bandwidthPrice": 1,
+        "latency": 0.05
+      },
+      "id": "63123ca2-d2de-4a49-bb53-ca76e63fb9cc",
+      "flowProperties": {
+        "usedBandwidth": 0
+      }
+    },
+    {
+      "from": "fctry_datacenter",
+      "to": "cloud",
+      "baseProperties": {
+        "availableBandwidth": 1000000000,
+        "bandwidthPrice": 10,
+        "latency": 0.1
+      },
+      "id": "35a48da0-2919-42f8-b7fc-856382f9495a",
+      "flowProperties": {
+        "usedBandwidth": 0
+      }
+    },
+    {
+      "from": "cloud",
+      "to": "fctry_datacenter",
+      "baseProperties": {
+        "availableBandwidth": 1000000000,
+        "bandwidthPrice": 10,
+        "latency": 0.1
+      },
+      "id": "655b508b-6740-4de2-9af0-b32474486ffc",
+      "flowProperties": {
+        "usedBandwidth": 0
+      }
+    },
+    {
+      "from": "office_datacenter",
+      "to": "cloud",
+      "baseProperties": {
+        "availableBandwidth": 10000000000,
+        "bandwidthPrice": 10,
+        "latency": 0.05
+      },
+      "id": "a3d65489-323d-40ec-a3c7-ef9431d059d2",
+      "flowProperties": {
+        "usedBandwidth": 0
+      }
+    },
+    {
+      "from": "cloud",
+      "to": "office_datacenter",
+      "baseProperties": {
+        "availableBandwidth": 10000000000,
+        "bandwidthPrice": 10,
+        "latency": 0.05
+      },
+      "id": "34f38b57-a6e9-4656-a4df-16f36a15da10",
+      "flowProperties": {
+        "usedBandwidth": 0
+      }
+    }
+  ],
+  "modules": [
+    {
+      "id": "camera",
+      "label": "Camera",
+      "type": "sensor",
+      "baseProperties": {
+        "mode": "individual",
+        "requiredMemory": 0,
+        "outputRate": 10
+      },
+      "flowProperties": {
+        "notReachedBecauseOfDataPath": [],
+        "actualProcessingTime": 0,
+        "processingCost": 0
+      }
+    },
+    {
+      "id": "cfd",
+      "label": "Check for Defects",
+      "type": "service",
+      "baseProperties": {
+        "mode": "individual",
+        "requiredMemory": 10,
+        "outputRatio": 0.1,
+        "referenceProcessingTime": 0.01
+      },
+      "flowProperties": {
+        "notReachedBecauseOfDataPath": [],
+        "actualProcessingTime": 0.02,
+        "processingCost": 5
+      }
+    },
+    {
+      "id": "cntrl",
+      "label": "Production Controller",
+      "type": "sink",
+      "baseProperties": {
+        "requiredMemory": 0
+      },
+      "flowProperties": {
+        "notReachedBecauseOfDataPath": [],
+        "actualProcessingTime": 0,
+        "processingCost": 0
+      }
+    },
+    {
+      "id": "cntrl2",
+      "label": "Production Controller",
+      "type": "sensor",
+      "baseProperties": {
+        "mode": "individual",
+        "requiredMemory": 0,
+        "outputRate": 1
+      },
+      "flowProperties": {
+        "notReachedBecauseOfDataPath": [],
+        "actualProcessingTime": 0,
+        "processingCost": 0
+      }
+    },
+    {
+      "id": "sensor",
+      "label": "Temperature Sensor",
+      "type": "sensor",
+      "baseProperties": {
+        "mode": "individual",
+        "requiredMemory": 0,
+        "outputRate": 1
+      },
+      "flowProperties": {
+        "notReachedBecauseOfDataPath": [],
+        "actualProcessingTime": 0,
+        "processingCost": 0
+      }
+    },
+    {
+      "id": "adapt",
+      "label": "Adapt Machine",
+      "type": "service",
+      "baseProperties": {
+        "mode": "individual",
+        "requiredMemory": 1,
+        "outputRatio": 0.5,
+        "referenceProcessingTime": 0.002
+      },
+      "flowProperties": {
+        "notReachedBecauseOfDataPath": [],
+        "actualProcessingTime": 0.04,
+        "processingCost": 500
+      }
+    },
+    {
+      "id": "pkgcntrl",
+      "label": "Packaging Controller",
+      "type": "sink",
+      "baseProperties": {
+        "requiredMemory": 0
+      },
+      "flowProperties": {
+        "notReachedBecauseOfDataPath": [],
+        "actualProcessingTime": 0,
+        "processingCost": 0
+      }
+    },
+    {
+      "id": "pkgcntrl2",
+      "label": "Packaging Controller",
+      "type": "sensor",
+      "baseProperties": {
+        "mode": "individual",
+        "requiredMemory": 0,
+        "outputRate": 1
+      },
+      "flowProperties": {
+        "notReachedBecauseOfDataPath": [],
+        "actualProcessingTime": 0,
+        "processingCost": 0
+      }
+    },
+    {
+      "id": "aggregate",
+      "label": "Aggregate",
+      "type": "service",
+      "baseProperties": {
+        "mode": "individual",
+        "requiredMemory": 10,
+        "outputRatio": 0.1,
+        "referenceProcessingTime": 0.002
+      },
+      "flowProperties": {
+        "notReachedBecauseOfDataPath": [],
+        "actualProcessingTime": 0.02,
+        "processingCost": 250
+      }
+    },
+    {
+      "id": "generatedashboard",
+      "label": "Generate Dashboard",
+      "type": "service",
+      "baseProperties": {
+        "mode": "individual",
+        "requiredMemory": 2500,
+        "outputRatio": 10,
+        "referenceProcessingTime": 0.05
+      },
+      "flowProperties": {
+        "notReachedBecauseOfDataPath": [],
+        "actualProcessingTime": 0.1,
+        "processingCost": 5
+      }
+    },
+    {
+      "id": "centraldashboard",
+      "label": "Central Office Dashboard",
+      "type": "sink",
+      "baseProperties": {
+        "requiredMemory": 0
+      },
+      "flowProperties": {
+        "notReachedBecauseOfDataPath": [],
+        "actualProcessingTime": 0,
+        "processingCost": 0
+      }
+    },
+    {
+      "id": "predict",
+      "label": "Predict Pickup",
+      "type": "service",
+      "baseProperties": {
+        "mode": "individual",
+        "requiredMemory": 1000,
+        "outputRatio": 0.1,
+        "referenceProcessingTime": 0.1
+      },
+      "flowProperties": {
+        "notReachedBecauseOfDataPath": [],
+        "actualProcessingTime": 0.2,
+        "processingCost": 5
+      }
+    },
+    {
+      "id": "prognosis",
+      "label": "Logistics Team Prognosis",
+      "type": "sink",
+      "baseProperties": {
+        "requiredMemory": 0
+      },
+      "flowProperties": {
+        "notReachedBecauseOfDataPath": [],
+        "actualProcessingTime": 0,
+        "processingCost": 0
+      }
+    }
+  ],
+  "dataPaths": [
+    {
+      "from": "camera",
+      "to": "cfd",
+      "id": "ca16c986-0954-4f92-8ae8-2e314ce19f05",
+      "flowProperties": {
+        "requiredBandwidth": 10,
+        "involvedConnections": [
+          "a00a460f-fcf1-4611-90b2-cc360751b2a4",
+          "52461129-55ea-4f61-a605-74bb0a45215f",
+          "6a540a59-e461-464c-9ef3-f7fa6a4e7d83"
+        ],
+        "notReachedBecauseOfDataPath": [],
+        "transmissionTime": 0.06010000000000001,
+        "transmissionCost": 50
+      }
+    },
+    {
+      "from": "cfd",
+      "to": "cntrl",
+      "id": "fb544049-a320-4a1d-aeb8-7d432e745249",
+      "flowProperties": {
+        "requiredBandwidth": 1,
+        "involvedConnections": [
+          "13370ff0-06a8-4d70-907a-32c85eae0097",
+          "60a462d4-ed9e-4efd-9b80-7424eeb6a2ae"
+        ],
+        "notReachedBecauseOfDataPath": [],
+        "transmissionTime": 0.060000000000000005,
+        "transmissionCost": 5
+      }
+    },
+    {
+      "from": "cntrl2",
+      "to": "adapt",
+      "id": "39e3ab96-989e-4193-a4cc-6657a6e2d397",
+      "flowProperties": {
+        "requiredBandwidth": 1,
+        "involvedConnections": [
+          "52461129-55ea-4f61-a605-74bb0a45215f",
+          "e2a60bb7-0f67-4840-b95a-c38b5814e7e7"
+        ],
+        "notReachedBecauseOfDataPath": [],
+        "transmissionTime": 0.1,
+        "transmissionCost": 10
+      }
+    },
+    {
+      "from": "sensor",
+      "to": "adapt",
+      "id": "090c5dc4-23e0-4542-9d79-a048bc9795d4",
+      "flowProperties": {
+        "requiredBandwidth": 1,
+        "involvedConnections": ["61633e57-e951-47f8-9e18-58e0a940ac4c"],
+        "notReachedBecauseOfDataPath": [],
+        "transmissionTime": 0.0001,
+        "transmissionCost": 0
+      }
+    },
+    {
+      "from": "adapt",
+      "to": "pkgcntrl",
+      "id": "a9cccac8-7929-41a0-80df-66c87bf946d5",
+      "flowProperties": {
+        "requiredBandwidth": 1,
+        "involvedConnections": [],
+        "notReachedBecauseOfDataPath": [],
+        "transmissionTime": 0,
+        "transmissionCost": 0
+      }
+    },
+    {
+      "from": "pkgcntrl2",
+      "to": "aggregate",
+      "id": "b8e52fc1-b2ad-47cd-a186-b45cae379746",
+      "flowProperties": {
+        "requiredBandwidth": 1,
+        "involvedConnections": ["9fe246c5-9bc4-4026-ab5a-fcb6c0e7d470"],
+        "notReachedBecauseOfDataPath": [],
+        "transmissionTime": 0.05,
+        "transmissionCost": 5
+      }
+    },
+    {
+      "from": "aggregate",
+      "to": "generatedashboard",
+      "id": "c785caf9-bd6e-4be1-8268-1a59a9c3016c",
+      "flowProperties": {
+        "requiredBandwidth": 0.1,
+        "involvedConnections": ["6a540a59-e461-464c-9ef3-f7fa6a4e7d83"],
+        "notReachedBecauseOfDataPath": [],
+        "transmissionTime": 0.01,
+        "transmissionCost": 0
+      }
+    },
+    {
+      "from": "generatedashboard",
+      "to": "centraldashboard",
+      "id": "b370ba6c-a9f2-4b54-83b7-66b9f0435615",
+      "flowProperties": {
+        "requiredBandwidth": 1,
+        "involvedConnections": ["6c775ee9-d10d-4096-9cbe-ba110a527782"],
+        "notReachedBecauseOfDataPath": [],
+        "transmissionTime": 0.05,
+        "transmissionCost": 1
+      }
+    },
+    {
+      "from": "pkgcntrl2",
+      "to": "predict",
+      "id": "b108dff4-33ee-4df8-ab5d-4bd903a985a0",
+      "flowProperties": {
+        "requiredBandwidth": 1,
+        "involvedConnections": [
+          "9fe246c5-9bc4-4026-ab5a-fcb6c0e7d470",
+          "6a540a59-e461-464c-9ef3-f7fa6a4e7d83"
+        ],
+        "notReachedBecauseOfDataPath": [],
+        "transmissionTime": 0.060000000000000005,
+        "transmissionCost": 5
+      }
+    },
+    {
+      "from": "predict",
+      "to": "prognosis",
+      "id": "cbd34c9c-980d-47f0-973d-14a7099f5ad3",
+      "flowProperties": {
+        "requiredBandwidth": 0.1,
+        "involvedConnections": [],
+        "notReachedBecauseOfDataPath": [],
+        "transmissionTime": 0,
+        "transmissionCost": 0
+      }
+    }
+  ],
+  "placements": {
+    "pkgcntrl2": "pack_cntrl",
+    "centraldashboard": "office_datacenter",
+    "prognosis": "fctry_datacenter",
+    "pkgcntrl": "pack_cntrl",
+    "cntrl2": "prod_cntrl",
+    "camera": "camera",
+    "cntrl": "prod_cntrl",
+    "sensor": "sensor",
+    "generatedashboard": "fctry_datacenter",
+    "aggregate": "wgw",
+    "cfd": "fctry_datacenter",
+    "adapt": "pack_cntrl",
+    "predict": "fctry_datacenter"
+  },
+  "flowMetrics": {
+    "coherentFlowExists": true,
+    "totalProcessingCost": 765,
+    "totalProcessingTime": 0.38,
+    "totalTransmissionCost": 76,
+    "totalTransmissionTime": 0.3902,
+    "underProvisionedNodes": [],
+    "underProvisionedConnections": [],
+    "impossiblePaths": []
+  }
+}

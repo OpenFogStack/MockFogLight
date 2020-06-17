@@ -1,0 +1,53 @@
+---
+- name: Update yum repositories and packages
+  yum:
+    name: "*"
+    state: latest
+
+- name: Install Python3.7
+  yum:
+    name: python37
+    state: latest
+
+- name: Install pip
+  yum:
+    name: python-pip
+    state: latest
+
+- name: Install Docker
+  yum:
+    name: docker
+    state: latest
+
+- name: Install Docker SDK
+  pip:
+    name: docker
+
+- name: Start Docker service
+  service:
+    name: docker
+    state: started
+
+- name: Kill all running docker containers
+  shell: docker rm --force $(docker ps -aq) || true
+
+- name: Allow Hard Time Sync
+  lineinfile:
+    path: /etc/chrony/chrony.conf
+    line: makestep 1 -1
+    create: yes
+
+- name: Synchronize Time
+  service:
+    name: chronyd
+    state: restarted
+
+- name: Copy env file
+  copy:
+    src: ./topology/mapping.env
+    dest: ./mapping.env
+
+- name: Remove old logs
+  shell:
+    cmd: truncate -s 0 /var/lib/docker/containers/*/*.log
+    removes: /var/lib/docker/containers/*/*.log

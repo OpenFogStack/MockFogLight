@@ -1,0 +1,14 @@
+---
+- name: Make log folder
+  file:
+    path: ./{{ container_name }}/logs
+    state: directory
+
+- name: Save docker logs
+  shell: "journalctl -o cat CONTAINER_NAME={{ container_name }} > {{ container_name }}/logs/{{ container_name }}.log"
+
+- name: Get logs
+  synchronize:
+    mode: pull
+    src: "{{ container_name }}/logs/"
+    dest: logs/

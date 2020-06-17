@@ -1,0 +1,58 @@
+---
+- name: Get VPC id
+  ec2_vpc_net_facts:
+    region: "{{ ec2_region }}"
+    filters:
+      "tag:Name": "Testbed_VPC"
+  register: network
+
+- name: Get Instance IDs
+  ec2_instance_info:
+    region: "{{ ec2_region }}"
+    filters:
+      vpc-id: "{{ network.vpcs[0].vpc_id }}"
+  register: ec2
+
+- name: Terminate Nodes
+  ec2:
+    region: "{{ ec2_region }}"
+    state: absent
+    wait: yes
+    instance_ids: "{{ item.instance_id }}"
+  with_items: "{{ ec2.instances }}"
+  register: instance_destruction
+  async: 300
+  poll: 0
+
+- name: Wait for EC2 instance destruction to finish
+  async_status:
+    jid: "{{ item.ansible_job_id }}"
+  register: instance_destruction_jobs
+  until: instance_destruction_jobs.finished
+  delay: 5
+  retries: 60
+  with_items: "{{ instance_destruction.results }}"
+
+- name: Get ENIs
+  ec2_eni_facts:
+    region: "{{ ec2_region }}"
+    filters:
+      vpc-id: "{{ network.vpcs[0].vpc_id }}"
+  register: enis
+
+- name: Destroy ENIs
+  ec2_eni:
+    region: "{{ ec2_region }}"
+    force_detach: yes
+    eni_id: "{{ item.id }}"
+  with_items: "{{ enis.network_interfaces }}"
+
+- name: Destroy Subnets
+  ec2_vpc_subnet:
+    region: "{{ ec2_region }}"
+    state: absent
+    vpc_id: "{{ network.vpcs[0].vpc_id }}"
+    cidr: "{{ item }}"
+  with_items:
+    - 10.0.1.0/24
+    - 10.0.2.0/24
