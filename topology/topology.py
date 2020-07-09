@@ -34,15 +34,18 @@ def create(g: Graph, file):
         elif n["baseProperties"]["performanceIndicator"] <= 50:
             flavor = "m5a.24xlarge"
 
+        # for testing only => use only reference machine
+        # flavor = "t2.medium"
 
-        g.add_node(n["id"], **node_attrs(role=n["id"], flavor=flavor, app_configs=[]))
+        g.add_node(n["id"], **node_attrs(role=n["id"],
+                                         flavor=flavor, app_configs=[]))
         #g.add_node(n["id"], **node_attrs(app_configs=[]))
 
     # add data paths
 
     for e in d["connections"]:
         g.add_edge(e["from"], e["to"], **edge_attrs(delay=float(e["baseProperties"]
-                                                                ["latency"]*1000), bandwidth=e["baseProperties"]["availableBandwidth"]))
+                                                                ["latency"]), bandwidth=e["baseProperties"]["availableBandwidth"]))
 
     # g.add_edge("cloud1_broker1", "cloud1", **edge_attrs(delay=4))
 

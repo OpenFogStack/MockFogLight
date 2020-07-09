@@ -117,8 +117,10 @@ def fill_node_attrs(g: Graph):
             attrs_update['connections'].append({
                 'target': dst_node,
                 'internal_ip': dst_attrs['internal_ip'],
-                'latency': int(get_path_latency(g, path)*1000),
-                'bandwidth': int(get_path_bandwidth(g, path)/1000000)
+                # latency in microseconds (is seconds in topology.json)
+                'latency': int(get_path_latency(g, path)*1000000),
+                # bandwidth in Megabit/second (is kilobit/second in topology.json)
+                'bandwidth': int(get_path_bandwidth(g, path)/1000)
             })
         g.node[node].update(attrs_update)
 
